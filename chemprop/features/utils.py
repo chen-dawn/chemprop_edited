@@ -40,9 +40,9 @@ def load_features(path: str) -> np.ndarray:
     extension = os.path.splitext(path)[1]
 
     if extension == '.npz':
-        features = np.load(path)['features']
+        features = np.load(path, allow_pickle=True)['features']
     elif extension == '.npy':
-        features = np.load(path)
+        features = np.load(path, allow_pickle=True)
     elif extension in ['.csv', '.txt']:
         with open(path) as f:
             reader = csv.reader(f)
@@ -74,7 +74,7 @@ def load_valid_atom_or_bond_features(path: str, smiles: List[str]) -> List[np.nd
     extension = os.path.splitext(path)[1]
 
     if extension == '.npz':
-        container = np.load(path)
+        container = np.load(path, allow_pickle=True)
         features = [container[key] for key in container]
 
     elif extension in ['.pkl', '.pckl', '.pickle']:
